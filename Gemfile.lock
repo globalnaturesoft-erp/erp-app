@@ -1,9 +1,19 @@
 PATH
+  remote: engines/contacts
+  specs:
+    erp_contacts (0.0.1)
+      deface
+      erp_core
+      rails (~> 5.0.0.1)
+
+PATH
   remote: engines/core
   specs:
     erp_core (0.1.0)
       devise (~> 4.2.0)
       rails (~> 5.0.0, >= 5.0.0.1)
+      will_paginate
+      will_paginate-bootstrap
 
 GEM
   remote: https://rubygems.org/
@@ -56,8 +66,14 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.10.0)
+    colorize (0.8.1)
     concurrent-ruby (1.0.2)
     debug_inspector (0.0.2)
+    deface (1.0.2)
+      colorize (>= 0.5.8)
+      nokogiri (~> 1.6.0)
+      polyglot
+      rails (>= 3.1)
     devise (4.2.0)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -90,12 +106,14 @@ GEM
     mime-types-data (3.2016.0521)
     mini_portile2 (2.1.0)
     minitest (5.9.1)
+    modular_engine (0.9.5)
     multi_json (1.12.1)
     nio4r (1.2.1)
     nokogiri (1.6.8.1)
       mini_portile2 (~> 2.1.0)
     orm_adapter (0.5.0)
     pg (0.19.0)
+    polyglot (0.3.5)
     puma (3.6.2)
     rack (2.0.1)
     rack-test (0.6.3)
@@ -168,6 +186,9 @@ GEM
     websocket-driver (0.6.4)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
+    will_paginate (3.1.5)
+    will_paginate-bootstrap (1.0.1)
+      will_paginate (>= 3.0.3)
 
 PLATFORMS
   ruby
@@ -175,10 +196,13 @@ PLATFORMS
 DEPENDENCIES
   byebug
   coffee-rails (~> 4.2)
+  deface
+  erp_contacts!
   erp_core!
   jbuilder (~> 2.5)
   jquery-rails
   listen (~> 3.0.5)
+  modular_engine
   pg (~> 0.18)
   puma (~> 3.0)
   rails (~> 5.0.0, >= 5.0.0.1)
