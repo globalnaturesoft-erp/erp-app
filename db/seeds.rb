@@ -8,3 +8,9 @@
 
 # Load other engines seed
 Erp::Core::Engine.load_seed
+Dir.glob(Rails.root.join('engines').to_s + "/*") do |d|
+  eg = d.split(/[\/\\]/).last
+  if eg != "core" and Erp::Core.available?(eg)
+    "Erp::#{eg.camelize}::Engine".constantize.load_seed
+  end
+end
