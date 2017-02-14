@@ -4,7 +4,8 @@ APP_PATH=`pwd`
 
 # pull parent app
 printf "\e[32mGit fetch + rebase of $APP_PATH: \e[0m \n"
-git status
+git fetch
+git rebase
 printf "\e[32mdone!\e[0m\n\n"
 
 # loop through engine folders
