@@ -49,7 +49,7 @@ cd "$APP_PATH"
 bundle install
 
 # run migrate
-rake db:migrate
+rails db:migrate
 
 echo -e "\n\e[32mEngine(s) installed\e[0m"
     
