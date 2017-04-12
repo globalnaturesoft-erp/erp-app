@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170411020636) do
+ActiveRecord::Schema.define(version: 20170411100818) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -479,6 +479,8 @@ ActiveRecord::Schema.define(version: 20170411020636) do
     t.integer  "creator_id"
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
+    t.string   "image_url"
+    t.boolean  "is_main",     default: false
     t.index ["creator_id"], name: "index_erp_products_brands_on_creator_id", using: :btree
   end
 
@@ -644,6 +646,7 @@ ActiveRecord::Schema.define(version: 20170411020636) do
     t.datetime "created_at",                                   null: false
     t.datetime "updated_at",                                   null: false
     t.string   "short_name"
+    t.string   "product_intro_link"
     t.index ["accessory_id"], name: "index_erp_products_products_on_accessory_id", using: :btree
     t.index ["brand_id"], name: "index_erp_products_products_on_brand_id", using: :btree
     t.index ["category_id"], name: "index_erp_products_products_on_category_id", using: :btree
@@ -797,6 +800,7 @@ ActiveRecord::Schema.define(version: 20170411020636) do
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
     t.string   "name"
+    t.string   "avatar"
     t.string   "timezone"
     t.boolean  "active",                 default: false
     t.integer  "creator_id"
