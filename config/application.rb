@@ -16,6 +16,6 @@ module ErpSystem
     config.action_view.cache_template_loading = true
 
     #@todo HK-ERP connector
-    config.hkerp_endpoint = 'http://erp.hoangkhang.com.vn/'
+    config.hkerp_endpoint = 'http://localhost:4000/'
   end
 end

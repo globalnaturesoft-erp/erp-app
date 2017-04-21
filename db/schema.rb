@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170411100818) do
+ActiveRecord::Schema.define(version: 20170421042914) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,14 @@ ActiveRecord::Schema.define(version: 20170411100818) do
     t.boolean  "archived",   default: false
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+  end
+
+  create_table "erp_areas_districts", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "state_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["state_id"], name: "index_erp_areas_districts_on_state_id", using: :btree
   end
 
   create_table "erp_areas_states", force: :cascade do |t|
@@ -306,6 +314,9 @@ ActiveRecord::Schema.define(version: 20170411100818) do
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
     t.integer  "brand_id"
+    t.string   "image_menu"
+    t.string   "image_menu_title"
+    t.string   "image_menu_link"
     t.index ["brand_group_id"], name: "index_erp_menus_menus_on_brand_group_id", using: :btree
     t.index ["creator_id"], name: "index_erp_menus_menus_on_creator_id", using: :btree
   end
@@ -332,6 +343,19 @@ ActiveRecord::Schema.define(version: 20170411100818) do
     t.string   "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "erp_orders_frontend_orders", force: :cascade do |t|
+    t.string   "code"
+    t.string   "status"
+    t.integer  "customer_id"
+    t.integer  "consignee_id"
+    t.text     "data"
+    t.text     "note"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["consignee_id"], name: "index_erp_orders_frontend_orders_on_consignee_id", using: :btree
+    t.index ["customer_id"], name: "index_erp_orders_frontend_orders_on_customer_id", using: :btree
   end
 
   create_table "erp_orders_order_details", force: :cascade do |t|
@@ -493,6 +517,15 @@ ActiveRecord::Schema.define(version: 20170411100818) do
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
     t.index ["creator_id"], name: "index_erp_products_categories_on_creator_id", using: :btree
+  end
+
+  create_table "erp_products_categories_pgroups", force: :cascade do |t|
+    t.integer  "category_id"
+    t.integer  "property_group_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.index ["category_id"], name: "index_erp_products_categories_pgroups_on_category_id", using: :btree
+    t.index ["property_group_id"], name: "index_erp_products_categories_pgroups_on_property_group_id", using: :btree
   end
 
   create_table "erp_products_comments", force: :cascade do |t|
@@ -665,15 +698,6 @@ ActiveRecord::Schema.define(version: 20170411100818) do
     t.index ["product_id"], name: "index_erp_products_products_parts_on_product_id", using: :btree
   end
 
-  create_table "erp_products_products_properties", force: :cascade do |t|
-    t.integer  "property_id"
-    t.integer  "product_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.index ["product_id"], name: "index_erp_products_products_properties_on_product_id", using: :btree
-    t.index ["property_id"], name: "index_erp_products_products_properties_on_property_id", using: :btree
-  end
-
   create_table "erp_products_products_units", force: :cascade do |t|
     t.integer  "product_id"
     t.integer  "unit_id"
@@ -687,24 +711,41 @@ ActiveRecord::Schema.define(version: 20170411100818) do
   end
 
   create_table "erp_products_products_values", force: :cascade do |t|
-    t.integer "products_property_id"
+    t.integer "product_id"
     t.integer "properties_value_id"
-    t.index ["products_property_id"], name: "index_erp_products_products_values_on_products_property_id", using: :btree
+    t.index ["product_id"], name: "index_erp_products_products_values_on_product_id", using: :btree
     t.index ["properties_value_id"], name: "index_erp_products_products_values_on_properties_value_id", using: :btree
   end
 
   create_table "erp_products_properties", force: :cascade do |t|
     t.string   "name"
     t.integer  "creator_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.boolean  "archived",          default: false
+    t.integer  "property_group_id"
+    t.boolean  "is_show_list"
+    t.boolean  "is_show_detail"
+    t.integer  "custom_order",      default: 0
     t.index ["creator_id"], name: "index_erp_products_properties_on_creator_id", using: :btree
+    t.index ["property_group_id"], name: "index_erp_products_properties_on_property_group_id", using: :btree
   end
 
   create_table "erp_products_properties_values", force: :cascade do |t|
     t.integer "property_id"
     t.string  "value"
     t.index ["property_id"], name: "index_erp_products_properties_values_on_property_id", using: :btree
+  end
+
+  create_table "erp_products_property_groups", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.boolean  "archived",     default: false
+    t.integer  "creator_id"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.integer  "custom_order", default: 0
+    t.index ["creator_id"], name: "index_erp_products_property_groups_on_creator_id", using: :btree
   end
 
   create_table "erp_products_ratings", force: :cascade do |t|
