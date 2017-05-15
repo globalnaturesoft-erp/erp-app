@@ -17,5 +17,7 @@ module ErpSystem
 
     #@todo HK-ERP connector
     config.hkerp_endpoint = 'http://erp.hoangkhang.com.vn/'
+
+    config.time_zone = 'Asia/Ho_Chi_Minh'
   end
 end
