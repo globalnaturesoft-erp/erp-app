@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170421042914) do
+ActiveRecord::Schema.define(version: 20170515034712) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -180,10 +180,12 @@ ActiveRecord::Schema.define(version: 20170421042914) do
     t.integer  "payment_term_id"
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
+    t.integer  "district_id"
     t.index ["company_id"], name: "index_erp_contacts_contacts_on_company_id", using: :btree
     t.index ["contact_group_id"], name: "index_erp_contacts_contacts_on_contact_group_id", using: :btree
     t.index ["country_id"], name: "index_erp_contacts_contacts_on_country_id", using: :btree
     t.index ["creator_id"], name: "index_erp_contacts_contacts_on_creator_id", using: :btree
+    t.index ["district_id"], name: "index_erp_contacts_contacts_on_district_id", using: :btree
     t.index ["parent_id"], name: "index_erp_contacts_contacts_on_parent_id", using: :btree
     t.index ["payment_method_id"], name: "index_erp_contacts_contacts_on_payment_method_id", using: :btree
     t.index ["payment_term_id"], name: "index_erp_contacts_contacts_on_payment_term_id", using: :btree
@@ -345,6 +347,18 @@ ActiveRecord::Schema.define(version: 20170421042914) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "erp_orders_frontend_order_details", force: :cascade do |t|
+    t.integer  "product_id"
+    t.integer  "frontend_order_id"
+    t.string   "product_name"
+    t.integer  "quantity",          default: 1
+    t.decimal  "price"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.index ["frontend_order_id"], name: "index_erp_orders_frontend_order_details_on_frontend_order_id", using: :btree
+    t.index ["product_id"], name: "index_erp_orders_frontend_order_details_on_product_id", using: :btree
+  end
+
   create_table "erp_orders_frontend_orders", force: :cascade do |t|
     t.string   "code"
     t.string   "status"
@@ -354,7 +368,10 @@ ActiveRecord::Schema.define(version: 20170421042914) do
     t.text     "note"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.string   "cache_total"
+    t.integer  "creator_id"
     t.index ["consignee_id"], name: "index_erp_orders_frontend_orders_on_consignee_id", using: :btree
+    t.index ["creator_id"], name: "index_erp_orders_frontend_orders_on_creator_id", using: :btree
     t.index ["customer_id"], name: "index_erp_orders_frontend_orders_on_customer_id", using: :btree
   end
 
@@ -574,6 +591,26 @@ ActiveRecord::Schema.define(version: 20170421042914) do
     t.index ["warehouse_id"], name: "index_erp_products_damage_records_on_warehouse_id", using: :btree
   end
 
+  create_table "erp_products_events", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "from_date"
+    t.datetime "to_date"
+    t.string   "image_url"
+    t.text     "description"
+    t.boolean  "archived",    default: false
+    t.integer  "creator_id"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.index ["creator_id"], name: "index_erp_products_events_on_creator_id", using: :btree
+  end
+
+  create_table "erp_products_events_products", force: :cascade do |t|
+    t.integer "event_id"
+    t.integer "product_id"
+    t.index ["event_id"], name: "index_erp_products_events_products_on_event_id", using: :btree
+    t.index ["product_id"], name: "index_erp_products_events_products_on_product_id", using: :btree
+  end
+
   create_table "erp_products_hkerp_products", force: :cascade do |t|
     t.integer  "product_id"
     t.integer  "hkerp_product_id"
@@ -635,8 +672,10 @@ ActiveRecord::Schema.define(version: 20170421042914) do
   end
 
   create_table "erp_products_product_images", force: :cascade do |t|
-    t.integer "product_id"
-    t.string  "image_url"
+    t.integer  "product_id"
+    t.string   "image_url"
+    t.datetime "created_at", default: '2017-05-15 03:54:25', null: false
+    t.datetime "updated_at", default: '2017-05-15 03:54:25', null: false
     t.index ["product_id"], name: "index_erp_products_product_images_on_product_id", using: :btree
   end
 
@@ -680,6 +719,7 @@ ActiveRecord::Schema.define(version: 20170421042914) do
     t.datetime "updated_at",                                   null: false
     t.string   "short_name"
     t.string   "product_intro_link"
+    t.text     "cache_search"
     t.index ["accessory_id"], name: "index_erp_products_products_on_accessory_id", using: :btree
     t.index ["brand_id"], name: "index_erp_products_products_on_brand_id", using: :btree
     t.index ["category_id"], name: "index_erp_products_products_on_category_id", using: :btree
@@ -751,11 +791,11 @@ ActiveRecord::Schema.define(version: 20170421042914) do
   create_table "erp_products_ratings", force: :cascade do |t|
     t.text     "content"
     t.integer  "star"
-    t.boolean  "archived",   default: false
+    t.boolean  "archived",   default: true
     t.integer  "product_id"
     t.integer  "user_id"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.index ["product_id"], name: "index_erp_products_ratings_on_product_id", using: :btree
     t.index ["user_id"], name: "index_erp_products_ratings_on_user_id", using: :btree
   end
@@ -846,6 +886,11 @@ ActiveRecord::Schema.define(version: 20170421042914) do
     t.boolean  "active",                 default: false
     t.integer  "creator_id"
     t.integer  "contact_id"
+    t.text     "permissions"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.index ["confirmation_token"], name: "index_erp_users_on_confirmation_token", unique: true, using: :btree
     t.index ["contact_id"], name: "index_erp_users_on_contact_id", using: :btree
     t.index ["creator_id"], name: "index_erp_users_on_creator_id", using: :btree
     t.index ["email"], name: "index_erp_users_on_email", unique: true, using: :btree

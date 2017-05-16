@@ -127,22 +127,6 @@ PATH
       rails (~> 5.0.0.1)
 
 PATH
-  remote: engines/purchase
-  specs:
-    erp_purchase (0.0.1)
-      deface
-      erp_core
-      rails (~> 5.0.0.1)
-
-PATH
-  remote: engines/sales
-  specs:
-    erp_sales (0.0.1)
-      deface
-      erp_core
-      rails (~> 5.0.0.1)
-
-PATH
   remote: engines/taxes
   specs:
     erp_taxes (0.0.1)
@@ -396,8 +380,6 @@ DEPENDENCIES
   erp_orders!
   erp_payments!
   erp_products!
-  erp_purchase!
-  erp_sales!
   erp_taxes!
   erp_testimonials!
   erp_warehouses!
@@ -417,4 +399,4 @@ DEPENDENCIES
   web-console
 
 BUNDLED WITH
-   1.13.6
+   1.13.7
