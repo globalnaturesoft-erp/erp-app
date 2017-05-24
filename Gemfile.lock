@@ -23,6 +23,14 @@ PATH
       rails (~> 5.0.0.1)
 
 PATH
+  remote: engines/banners
+  specs:
+    erp_banners (0.0.1)
+      deface
+      erp_core
+      rails (~> 5.0.0.1)
+
+PATH
   remote: engines/carts
   specs:
     erp_carts (0.0.1)
@@ -122,6 +130,22 @@ PATH
   remote: engines/products
   specs:
     erp_products (0.0.1)
+      deface
+      erp_core
+      rails (~> 5.0.0.1)
+
+PATH
+  remote: engines/purchase
+  specs:
+    erp_purchase (0.0.1)
+      deface
+      erp_core
+      rails (~> 5.0.0.1)
+
+PATH
+  remote: engines/sales
+  specs:
+    erp_sales (0.0.1)
       deface
       erp_core
       rails (~> 5.0.0.1)
@@ -321,6 +345,8 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
+    sitemap_generator (5.3.1)
+      builder (~> 3.0)
     spring (2.0.0)
       activesupport (>= 4.2)
     spring-watcher-listen (2.0.1)
@@ -368,6 +394,7 @@ DEPENDENCIES
   erp_accounting!
   erp_areas!
   erp_articles!
+  erp_banners!
   erp_carts!
   erp_contacts!
   erp_core!
@@ -380,6 +407,8 @@ DEPENDENCIES
   erp_orders!
   erp_payments!
   erp_products!
+  erp_purchase!
+  erp_sales!
   erp_taxes!
   erp_testimonials!
   erp_warehouses!
@@ -391,6 +420,7 @@ DEPENDENCIES
   puma (~> 3.0)
   rails (~> 5.0.0, >= 5.0.0.1)
   sass-rails (~> 5.0)
+  sitemap_generator
   spring
   spring-watcher-listen (~> 2.0.0)
   turbolinks (~> 5)
@@ -399,4 +429,4 @@ DEPENDENCIES
   web-console
 
 BUNDLED WITH
-   1.13.7
+   1.15.0

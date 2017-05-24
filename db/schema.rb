@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170515034712) do
+ActiveRecord::Schema.define(version: 20170523025347) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,6 +79,33 @@ ActiveRecord::Schema.define(version: 20170515034712) do
     t.datetime "updated_at",                 null: false
     t.index ["article_id"], name: "index_erp_articles_comments_on_article_id", using: :btree
     t.index ["user_id"], name: "index_erp_articles_comments_on_user_id", using: :btree
+  end
+
+  create_table "erp_banners_banners", force: :cascade do |t|
+    t.string   "image_url"
+    t.string   "name"
+    t.string   "link_url"
+    t.boolean  "archived",     default: false
+    t.integer  "category_id"
+    t.integer  "creator_id"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.integer  "custom_order"
+    t.index ["category_id"], name: "index_erp_banners_banners_on_category_id", using: :btree
+    t.index ["creator_id"], name: "index_erp_banners_banners_on_creator_id", using: :btree
+  end
+
+  create_table "erp_banners_categories", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "width"
+    t.integer  "height"
+    t.string   "image_scale"
+    t.boolean  "archived",    default: false
+    t.string   "position"
+    t.integer  "creator_id"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.index ["creator_id"], name: "index_erp_banners_categories_on_creator_id", using: :btree
   end
 
   create_table "erp_carts_cart_items", force: :cascade do |t|
@@ -319,6 +346,7 @@ ActiveRecord::Schema.define(version: 20170515034712) do
     t.string   "image_menu"
     t.string   "image_menu_title"
     t.string   "image_menu_link"
+    t.text     "cache_search"
     t.index ["brand_group_id"], name: "index_erp_menus_menus_on_brand_group_id", using: :btree
     t.index ["creator_id"], name: "index_erp_menus_menus_on_creator_id", using: :btree
   end
@@ -516,12 +544,13 @@ ActiveRecord::Schema.define(version: 20170515034712) do
   create_table "erp_products_brands", force: :cascade do |t|
     t.string   "name"
     t.text     "description"
-    t.boolean  "archived",    default: false
+    t.boolean  "archived",     default: false
     t.integer  "creator_id"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.string   "image_url"
-    t.boolean  "is_main",     default: false
+    t.boolean  "is_main",      default: false
+    t.text     "cache_search"
     t.index ["creator_id"], name: "index_erp_products_brands_on_creator_id", using: :btree
   end
 
@@ -598,10 +627,10 @@ ActiveRecord::Schema.define(version: 20170515034712) do
     t.string   "image_url"
     t.text     "description"
     t.boolean  "archived",    default: false
-    t.integer  "creator_id"
+    t.integer  "user_id"
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
-    t.index ["creator_id"], name: "index_erp_products_events_on_creator_id", using: :btree
+    t.index ["user_id"], name: "index_erp_products_events_on_user_id", using: :btree
   end
 
   create_table "erp_products_events_products", force: :cascade do |t|
@@ -674,8 +703,8 @@ ActiveRecord::Schema.define(version: 20170515034712) do
   create_table "erp_products_product_images", force: :cascade do |t|
     t.integer  "product_id"
     t.string   "image_url"
-    t.datetime "created_at", default: '2017-05-15 03:54:25', null: false
-    t.datetime "updated_at", default: '2017-05-15 03:54:25', null: false
+    t.datetime "created_at", default: '2017-05-15 03:52:46', null: false
+    t.datetime "updated_at", default: '2017-05-15 03:52:46', null: false
     t.index ["product_id"], name: "index_erp_products_product_images_on_product_id", using: :btree
   end
 
@@ -720,6 +749,7 @@ ActiveRecord::Schema.define(version: 20170515034712) do
     t.string   "short_name"
     t.string   "product_intro_link"
     t.text     "cache_search"
+    t.boolean  "is_stock_inventory",      default: false
     t.index ["accessory_id"], name: "index_erp_products_products_on_accessory_id", using: :btree
     t.index ["brand_id"], name: "index_erp_products_products_on_brand_id", using: :btree
     t.index ["category_id"], name: "index_erp_products_products_on_category_id", using: :btree
