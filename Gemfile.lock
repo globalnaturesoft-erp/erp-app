@@ -1,44 +1,4 @@
 PATH
-  remote: engines/accounting
-  specs:
-    erp_accounting (0.0.1)
-      deface
-      erp_core
-      rails (~> 5.0.0.1)
-
-PATH
-  remote: engines/areas
-  specs:
-    erp_areas (0.0.1)
-      deface
-      erp_core
-      rails (~> 5.0.0.1)
-
-PATH
-  remote: engines/articles
-  specs:
-    erp_articles (0.0.1)
-      deface
-      erp_core
-      rails (~> 5.0.0.1)
-
-PATH
-  remote: engines/banners
-  specs:
-    erp_banners (0.0.1)
-      deface
-      erp_core
-      rails (~> 5.0.0.1)
-
-PATH
-  remote: engines/carts
-  specs:
-    erp_carts (0.0.1)
-      deface
-      erp_core
-      rails (~> 5.0.0.1)
-
-PATH
   remote: engines/contacts
   specs:
     erp_contacts (0.0.1)
@@ -57,119 +17,24 @@ PATH
       omniauth-facebook
       omniauth-google-oauth2
       rails (~> 5.0.0, >= 5.0.0.1)
+      rmega
       rubyzip (~> 1.1.0)
       unidecoder
       will_paginate
       will_paginate-bootstrap
 
 PATH
-  remote: engines/currencies
+  remote: engines/mini_stores
   specs:
-    erp_currencies (0.0.1)
+    erp_mini_stores (0.0.1)
       deface
       erp_core
       rails (~> 5.0.0.1)
 
 PATH
-  remote: engines/deliveries
+  remote: engines/phuong_tung_plastics
   specs:
-    erp_deliveries (0.0.1)
-      deface
-      erp_core
-      rails (~> 5.0.0.1)
-
-PATH
-  remote: engines/inventory
-  specs:
-    erp_inventory (0.0.1)
-      deface
-      erp_core
-      rails (~> 5.0.0.1)
-
-PATH
-  remote: engines/menus
-  specs:
-    erp_menus (0.0.1)
-      deface
-      erp_core
-      rails (~> 5.0.0.1)
-
-PATH
-  remote: engines/newsletters
-  specs:
-    erp_newsletters (0.0.1)
-      deface
-      erp_core
-      rails (~> 5.0.0.1)
-
-PATH
-  remote: engines/online_store
-  specs:
-    erp_online_store (0.0.1)
-      deface
-      erp_core
-      rails (~> 5.0.0.1)
-
-PATH
-  remote: engines/orders
-  specs:
-    erp_orders (0.0.1)
-      deface
-      erp_core
-      rails (~> 5.0.0.1)
-
-PATH
-  remote: engines/payments
-  specs:
-    erp_payments (0.0.1)
-      deface
-      erp_core
-      rails (~> 5.0.0.1)
-
-PATH
-  remote: engines/products
-  specs:
-    erp_products (0.0.1)
-      deface
-      erp_core
-      rails (~> 5.0.0.1)
-
-PATH
-  remote: engines/purchase
-  specs:
-    erp_purchase (0.0.1)
-      deface
-      erp_core
-      rails (~> 5.0.0.1)
-
-PATH
-  remote: engines/sales
-  specs:
-    erp_sales (0.0.1)
-      deface
-      erp_core
-      rails (~> 5.0.0.1)
-
-PATH
-  remote: engines/taxes
-  specs:
-    erp_taxes (0.0.1)
-      deface
-      erp_core
-      rails (~> 5.0.0.1)
-
-PATH
-  remote: engines/testimonials
-  specs:
-    erp_testimonials (0.0.1)
-      deface
-      erp_core
-      rails (~> 5.0.0.1)
-
-PATH
-  remote: engines/warehouses
-  specs:
-    erp_warehouses (0.0.1)
+    erp_phuong_tung_plastics (0.0.1)
       deface
       erp_core
       rails (~> 5.0.0.1)
@@ -219,7 +84,7 @@ GEM
     builder (3.2.2)
     byebug (9.0.6)
     cancan (1.6.10)
-    carrierwave (1.0.0)
+    carrierwave (1.1.0)
       activemodel (>= 4.0.0)
       activesupport (>= 4.0.0)
       mime-types (>= 1.16)
@@ -272,7 +137,7 @@ GEM
     mime-types (3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
-    mini_magick (4.6.1)
+    mini_magick (4.7.0)
     mini_portile2 (2.1.0)
     minitest (5.9.1)
     modular_engine (0.9.5)
@@ -335,8 +200,10 @@ GEM
     rb-fsevent (0.9.8)
     rb-inotify (0.9.7)
       ffi (>= 0.5.0)
-    responders (2.3.0)
-      railties (>= 4.2.0, < 5.1)
+    responders (2.4.0)
+      actionpack (>= 4.2.0, < 5.3)
+      railties (>= 4.2.0, < 5.3)
+    rmega (0.2.2)
     rubyzip (1.1.7)
     sass (3.4.22)
     sass-rails (5.0.6)
@@ -391,27 +258,10 @@ DEPENDENCIES
   byebug
   coffee-rails (~> 4.2)
   deface
-  erp_accounting!
-  erp_areas!
-  erp_articles!
-  erp_banners!
-  erp_carts!
   erp_contacts!
   erp_core!
-  erp_currencies!
-  erp_deliveries!
-  erp_inventory!
-  erp_menus!
-  erp_newsletters!
-  erp_online_store!
-  erp_orders!
-  erp_payments!
-  erp_products!
-  erp_purchase!
-  erp_sales!
-  erp_taxes!
-  erp_testimonials!
-  erp_warehouses!
+  erp_mini_stores!
+  erp_phuong_tung_plastics!
   jbuilder (~> 2.5)
   jquery-rails
   listen (~> 3.0.5)
