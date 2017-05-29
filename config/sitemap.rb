@@ -28,7 +28,7 @@ SitemapGenerator::Sitemap.create do
   #     add article_path(article), :lastmod => article.updated_at
   #   end
 
-  add search_path
+  # add search_path
   add deal_products_path
   add bestseller_products_path
   add business_choices_path
