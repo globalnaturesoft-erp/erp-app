@@ -1,5 +1,5 @@
 # Set the host name for URL creation
-SitemapGenerator::Sitemap.default_host = "http://timhangcongnghe.vn"
+SitemapGenerator::Sitemap.default_host = "http://timhangcongnghe.com"
 SitemapGenerator::Interpreter.send :include, Erp::OnlineStore::Engine.routes.url_helpers
 SitemapGenerator::Interpreter.send :include, Erp::OnlineStore::ApplicationHelper
 SitemapGenerator::Interpreter.send :include, Erp::Core::ApplicationHelper
