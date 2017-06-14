@@ -44,7 +44,7 @@ SitemapGenerator::Sitemap.create do
   add brand_listing_path
   add computer_services_path
   add network_services_path
-  add "dang-ky-nhan-tin.html"
+  # add "dang-ky-nhan-tin.html"
 
   # product link
   Erp::Products::Product.get_active.each do |product|

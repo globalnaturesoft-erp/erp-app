@@ -14,7 +14,7 @@ module ErpSystem
     config.i18n.default_locale = :vi
 
     config.action_view.cache_template_loading = true
-
+    config.exceptions_app = self.routes
     #@todo HK-ERP connector
     config.hkerp_endpoint = 'http://erp.hoangkhang.com.vn/'
 
