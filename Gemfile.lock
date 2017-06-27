@@ -1,4 +1,39 @@
 PATH
+<<<<<<< 970a9f62510d2d88b2fa628d6c6fc0af5f6eda2f
+=======
+  remote: engines/areas
+  specs:
+    erp_areas (0.0.1)
+      deface
+      erp_core
+      rails (~> 5.0.0.1)
+
+PATH
+  remote: engines/articles
+  specs:
+    erp_articles (0.0.1)
+      deface
+      erp_core
+      rails (~> 5.0.0.1)
+
+PATH
+  remote: engines/banners
+  specs:
+    erp_banners (0.0.1)
+      deface
+      erp_core
+      rails (~> 5.0.0.1)
+
+PATH
+  remote: engines/carts
+  specs:
+    erp_carts (0.0.1)
+      deface
+      erp_core
+      rails (~> 5.0.0.1)
+
+PATH
+>>>>>>> GemLock
   remote: engines/contacts
   specs:
     erp_contacts (0.0.1)
@@ -24,6 +59,7 @@ PATH
       will_paginate-bootstrap
 
 PATH
+<<<<<<< 970a9f62510d2d88b2fa628d6c6fc0af5f6eda2f
 <<<<<<< 5ca82dc7e39b1143f63c368f4506065dbb0c07db
   remote: engines/mini_stores
 =======
@@ -35,6 +71,8 @@ PATH
       rails (~> 5.0.0.1)
 
 PATH
+=======
+>>>>>>> GemLock
   remote: engines/deliveries
   specs:
     erp_deliveries (0.0.1)
@@ -86,25 +124,9 @@ PATH
       rails (~> 5.0.0.1)
 
 PATH
-  remote: engines/payments
-  specs:
-    erp_payments (0.0.1)
-      deface
-      erp_core
-      rails (~> 5.0.0.1)
-
-PATH
   remote: engines/products
   specs:
     erp_products (0.0.1)
-      deface
-      erp_core
-      rails (~> 5.0.0.1)
-
-PATH
-  remote: engines/taxes
-  specs:
-    erp_taxes (0.0.1)
       deface
       erp_core
       rails (~> 5.0.0.1)
@@ -118,6 +140,7 @@ PATH
       erp_core
       rails (~> 5.0.0.1)
 
+<<<<<<< 970a9f62510d2d88b2fa628d6c6fc0af5f6eda2f
 PATH
   remote: engines/phuong_tung_plastics
   specs:
@@ -126,6 +149,8 @@ PATH
       erp_core
       rails (~> 5.0.0.1)
 
+=======
+>>>>>>> GemLock
 GEM
   remote: https://rubygems.org/
   specs:
@@ -378,6 +403,7 @@ DEPENDENCIES
   byebug
   coffee-rails (~> 4.2)
   deface
+<<<<<<< 970a9f62510d2d88b2fa628d6c6fc0af5f6eda2f
   erp_contacts!
   erp_core!
 <<<<<<< 5ca82dc7e39b1143f63c368f4506065dbb0c07db
@@ -385,18 +411,27 @@ DEPENDENCIES
   erp_phuong_tung_plastics!
 =======
   erp_currencies!
+=======
+  erp_areas!
+  erp_articles!
+  erp_banners!
+  erp_carts!
+  erp_contacts!
+  erp_core!
+>>>>>>> GemLock
   erp_deliveries!
   erp_inventory!
   erp_menus!
   erp_newsletters!
   erp_online_store!
   erp_orders!
-  erp_payments!
   erp_products!
-  erp_taxes!
   erp_testimonials!
+<<<<<<< 970a9f62510d2d88b2fa628d6c6fc0af5f6eda2f
   erp_warehouses!
 >>>>>>> update sitemap
+=======
+>>>>>>> GemLock
   jbuilder (~> 2.5)
   jquery-rails
   listen (~> 3.0.5)
