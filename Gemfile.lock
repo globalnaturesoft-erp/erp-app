@@ -1,6 +1,4 @@
 PATH
-<<<<<<< 970a9f62510d2d88b2fa628d6c6fc0af5f6eda2f
-=======
   remote: engines/areas
   specs:
     erp_areas (0.0.1)
@@ -33,7 +31,6 @@ PATH
       rails (~> 5.0.0.1)
 
 PATH
->>>>>>> GemLock
   remote: engines/contacts
   specs:
     erp_contacts (0.0.1)
@@ -59,20 +56,6 @@ PATH
       will_paginate-bootstrap
 
 PATH
-<<<<<<< 970a9f62510d2d88b2fa628d6c6fc0af5f6eda2f
-<<<<<<< 5ca82dc7e39b1143f63c368f4506065dbb0c07db
-  remote: engines/mini_stores
-=======
-  remote: engines/currencies
-  specs:
-    erp_currencies (0.0.1)
-      deface
-      erp_core
-      rails (~> 5.0.0.1)
-
-PATH
-=======
->>>>>>> GemLock
   remote: engines/deliveries
   specs:
     erp_deliveries (0.0.1)
@@ -133,24 +116,12 @@ PATH
 
 PATH
   remote: engines/testimonials
->>>>>>> update sitemap
   specs:
-    erp_mini_stores (0.0.1)
+    erp_testimonials (0.0.1)
       deface
       erp_core
       rails (~> 5.0.0.1)
 
-<<<<<<< 970a9f62510d2d88b2fa628d6c6fc0af5f6eda2f
-PATH
-  remote: engines/phuong_tung_plastics
-  specs:
-    erp_phuong_tung_plastics (0.0.1)
-      deface
-      erp_core
-      rails (~> 5.0.0.1)
-
-=======
->>>>>>> GemLock
 GEM
   remote: https://rubygems.org/
   specs:
@@ -332,19 +303,13 @@ GEM
     rb-fsevent (0.9.8)
     rb-inotify (0.9.7)
       ffi (>= 0.5.0)
-<<<<<<< 5ca82dc7e39b1143f63c368f4506065dbb0c07db
-=======
     rebay (1.2.0)
       json
->>>>>>> update sitemap
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
       railties (>= 4.2.0, < 5.3)
     rmega (0.2.2)
-<<<<<<< 5ca82dc7e39b1143f63c368f4506065dbb0c07db
-=======
     ruby-hmac (0.4.0)
->>>>>>> update sitemap
     rubyzip (1.1.7)
     sass (3.4.22)
     sass-rails (5.0.6)
@@ -403,22 +368,12 @@ DEPENDENCIES
   byebug
   coffee-rails (~> 4.2)
   deface
-<<<<<<< 970a9f62510d2d88b2fa628d6c6fc0af5f6eda2f
-  erp_contacts!
-  erp_core!
-<<<<<<< 5ca82dc7e39b1143f63c368f4506065dbb0c07db
-  erp_mini_stores!
-  erp_phuong_tung_plastics!
-=======
-  erp_currencies!
-=======
   erp_areas!
   erp_articles!
   erp_banners!
   erp_carts!
   erp_contacts!
   erp_core!
->>>>>>> GemLock
   erp_deliveries!
   erp_inventory!
   erp_menus!
@@ -427,11 +382,6 @@ DEPENDENCIES
   erp_orders!
   erp_products!
   erp_testimonials!
-<<<<<<< 970a9f62510d2d88b2fa628d6c6fc0af5f6eda2f
-  erp_warehouses!
->>>>>>> update sitemap
-=======
->>>>>>> GemLock
   jbuilder (~> 2.5)
   jquery-rails
   listen (~> 3.0.5)
