@@ -8,16 +8,17 @@ Bundler.require(*Rails.groups)
 
 module ErpSystem
   class Application < Rails::Application
+    # Initialize configuration defaults for originally generated Rails version.
+    config.load_defaults 5.1
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
     config.i18n.default_locale = :vi
-
     config.action_view.cache_template_loading = true
-    config.exceptions_app = self.routes
+    config.time_zone = 'Asia/Ho_Chi_Minh'
+
     #@todo HK-ERP connector
     config.hkerp_endpoint = 'http://erp.hoangkhang.com.vn/'
-
-    config.time_zone = 'Asia/Ho_Chi_Minh'
   end
 end
