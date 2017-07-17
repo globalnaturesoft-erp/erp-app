@@ -89,6 +89,10 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
+  # custom cofig
+  # boost modular engines speed
+  config.action_view.cache_template_loading = true
+
   # @todo custom code not to be here ==========
   config.action_mailer.default_url_options = { :host => 'timhangcongnghe.com' }
 

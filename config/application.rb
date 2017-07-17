@@ -15,7 +15,6 @@ module ErpSystem
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
     config.i18n.default_locale = :vi
-    config.action_view.cache_template_loading = true
     config.time_zone = 'Asia/Ho_Chi_Minh'
 
     #@todo HK-ERP connector
