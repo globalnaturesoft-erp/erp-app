@@ -19,6 +19,7 @@
 
 # Ignore Gemfile
 /Gemfile
+/Gemfile.lock
 
 # Ignore database.yml
 /config/database.yml

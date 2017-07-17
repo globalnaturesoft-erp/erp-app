@@ -1,7 +1,7 @@
 PATH
   remote: engines/core
   specs:
-    erp_core (0.1.0)
+    erp_core (0.2)
       cancan
       carrierwave
       devise
