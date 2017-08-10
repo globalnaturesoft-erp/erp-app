@@ -8,9 +8,9 @@
 
 # Load other engines seed
 Erp::Core::Engine.load_seed
-Dir.glob(Rails.root.join('engines').to_s + "/*") do |d|
-  eg = d.split(/[\/\\]/).last
-  if eg != "core" and Erp::Core.available?(eg)
-    "Erp::#{eg.camelize}::Engine".constantize.load_seed
+Rails::Engine.subclasses.to_a.each do |class_name|
+  if class_name.to_s.split("::").first == "Erp"
+    name = class_name.to_s.split("::").second
+    "Erp::#{name.camelize}::Engine".constantize.load_seed
   end
 end
