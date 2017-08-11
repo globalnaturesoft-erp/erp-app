@@ -11,6 +11,7 @@ Erp::Core::Engine.load_seed
 Rails::Engine.subclasses.to_a.each do |class_name|
   if class_name.to_s.split("::").first == "Erp"
     name = class_name.to_s.split("::").second
+    puts "Loading seed: #{name}"
     "Erp::#{name.camelize}::Engine".constantize.load_seed
   end
 end
