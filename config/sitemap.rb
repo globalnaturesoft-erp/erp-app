@@ -2,7 +2,7 @@
 SitemapGenerator::Sitemap.default_host = "http://timhangcongnghe.com"
 SitemapGenerator::Interpreter.send :include, Erp::OnlineStore::Engine.routes.url_helpers
 SitemapGenerator::Interpreter.send :include, Erp::OnlineStore::ApplicationHelper
-SitemapGenerator::Interpreter.send :include, Erp::Core::ApplicationHelper
+SitemapGenerator::Interpreter.send :include, Erp::ApplicationHelper
 
 SitemapGenerator::Sitemap.create do
   # Put links creation logic here.
