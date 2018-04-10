@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180307092139) do
+ActiveRecord::Schema.define(version: 20180330030001) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -406,6 +406,7 @@ ActiveRecord::Schema.define(version: 20180307092139) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "status"
   end
 
   create_table "erp_ortho_k_property_values", force: :cascade do |t|
@@ -1058,6 +1059,7 @@ ActiveRecord::Schema.define(version: 20180307092139) do
     t.string "cache_payment_status"
     t.string "payment_for"
     t.decimal "cache_total"
+    t.string "address"
     t.index ["creator_id"], name: "index_erp_qdeliveries_deliveries_on_creator_id"
     t.index ["customer_id"], name: "index_erp_qdeliveries_deliveries_on_customer_id"
     t.index ["employee_id"], name: "index_erp_qdeliveries_deliveries_on_employee_id"
