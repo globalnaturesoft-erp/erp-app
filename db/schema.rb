@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180330030001) do
+ActiveRecord::Schema.define(version: 20180912085615) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,66 +41,112 @@ ActiveRecord::Schema.define(version: 20180330030001) do
     t.index ["country_id"], name: "index_erp_areas_states_on_country_id"
   end
 
-  create_table "erp_consignments_consignment_details", force: :cascade do |t|
+  create_table "erp_articles_articles", id: :serial, force: :cascade do |t|
+    t.string "image"
+    t.string "name"
+    t.text "content"
+    t.string "meta_keywords"
+    t.string "meta_description"
+    t.string "tags"
+    t.boolean "archived", default: false
+    t.integer "category_id"
+    t.integer "creator_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "custom_order"
+    t.index ["category_id"], name: "index_erp_articles_articles_on_category_id"
+    t.index ["creator_id"], name: "index_erp_articles_articles_on_creator_id"
+  end
+
+  create_table "erp_articles_categories", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.integer "parent_id"
+    t.string "alias"
+    t.boolean "archived", default: false
+    t.integer "creator_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "custom_order"
+    t.index ["creator_id"], name: "index_erp_articles_categories_on_creator_id"
+  end
+
+  create_table "erp_articles_comments", id: :serial, force: :cascade do |t|
+    t.text "message"
+    t.integer "parent_id"
+    t.boolean "archived", default: false
+    t.integer "article_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["article_id"], name: "index_erp_articles_comments_on_article_id"
+    t.index ["user_id"], name: "index_erp_articles_comments_on_user_id"
+  end
+
+  create_table "erp_banners_banners", id: :serial, force: :cascade do |t|
+    t.string "image_url"
+    t.string "name"
+    t.string "link_url"
+    t.boolean "archived", default: false
+    t.integer "category_id"
+    t.integer "creator_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "custom_order"
+    t.text "note"
+    t.index ["category_id"], name: "index_erp_banners_banners_on_category_id"
+    t.index ["creator_id"], name: "index_erp_banners_banners_on_creator_id"
+  end
+
+  create_table "erp_banners_categories", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.integer "width"
+    t.integer "height"
+    t.string "image_scale"
+    t.boolean "archived", default: false
+    t.string "position"
+    t.integer "creator_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["creator_id"], name: "index_erp_banners_categories_on_creator_id"
+  end
+
+  create_table "erp_carts_cart_items", id: :serial, force: :cascade do |t|
     t.integer "quantity", default: 1
-    t.bigint "product_id"
-    t.bigint "consignment_id"
+    t.integer "product_id"
+    t.integer "cart_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "state_id"
-    t.index ["consignment_id"], name: "index_erp_consignments_consignment_details_on_consignment_id"
-    t.index ["product_id"], name: "index_erp_consignments_consignment_details_on_product_id"
-    t.index ["state_id"], name: "index_erp_consignments_consignment_details_on_state_id"
+    t.index ["cart_id"], name: "index_erp_carts_cart_items_on_cart_id"
+    t.index ["product_id"], name: "index_erp_carts_cart_items_on_product_id"
   end
 
-  create_table "erp_consignments_consignments", force: :cascade do |t|
-    t.string "code"
-    t.datetime "sent_date"
-    t.datetime "return_date"
-    t.string "consignment_type"
-    t.text "note"
-    t.string "status", default: "draft"
-    t.boolean "archived", default: false
-    t.bigint "contact_id"
-    t.bigint "warehouse_id"
-    t.bigint "employee_id"
-    t.bigint "creator_id"
+  create_table "erp_carts_carts", id: :serial, force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["contact_id"], name: "index_erp_consignments_consignments_on_contact_id"
-    t.index ["creator_id"], name: "index_erp_consignments_consignments_on_creator_id"
-    t.index ["employee_id"], name: "index_erp_consignments_consignments_on_employee_id"
-    t.index ["warehouse_id"], name: "index_erp_consignments_consignments_on_warehouse_id"
   end
 
-  create_table "erp_consignments_cs_returns", force: :cascade do |t|
-    t.string "code"
-    t.datetime "return_date"
-    t.text "note"
-    t.string "status", default: "draft"
-    t.boolean "archived", default: false
-    t.bigint "warehouse_id"
-    t.bigint "consignment_id"
-    t.bigint "contact_id"
-    t.bigint "creator_id"
+  create_table "erp_carts_compare_items", id: :serial, force: :cascade do |t|
+    t.integer "product_id"
+    t.integer "compare_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["consignment_id"], name: "index_erp_consignments_cs_returns_on_consignment_id"
-    t.index ["contact_id"], name: "index_erp_consignments_cs_returns_on_contact_id"
-    t.index ["creator_id"], name: "index_erp_consignments_cs_returns_on_creator_id"
-    t.index ["warehouse_id"], name: "index_erp_consignments_cs_returns_on_warehouse_id"
+    t.index ["compare_id"], name: "index_erp_carts_compare_items_on_compare_id"
+    t.index ["product_id"], name: "index_erp_carts_compare_items_on_product_id"
   end
 
-  create_table "erp_consignments_return_details", force: :cascade do |t|
-    t.integer "quantity"
-    t.bigint "cs_return_id"
-    t.bigint "consignment_detail_id"
+  create_table "erp_carts_compares", id: :serial, force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "state_id"
-    t.index ["consignment_detail_id"], name: "index_erp_consignments_return_details_on_consignment_detail_id"
-    t.index ["cs_return_id"], name: "index_erp_consignments_return_details_on_cs_return_id"
-    t.index ["state_id"], name: "index_erp_consignments_return_details_on_state_id"
+  end
+
+  create_table "erp_carts_wish_lists", id: :serial, force: :cascade do |t|
+    t.integer "product_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_erp_carts_wish_lists_on_product_id"
+    t.index ["user_id"], name: "index_erp_carts_wish_lists_on_user_id"
   end
 
   create_table "erp_contact_groups_price_lists", id: :serial, force: :cascade do |t|
@@ -131,6 +177,7 @@ ActiveRecord::Schema.define(version: 20180330030001) do
     t.integer "creator_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "code"
     t.index ["creator_id"], name: "index_erp_contacts_contact_groups_on_creator_id"
   end
 
@@ -233,63 +280,100 @@ ActiveRecord::Schema.define(version: 20180330030001) do
     t.index ["creator_id"], name: "index_erp_contacts_titles_on_creator_id"
   end
 
+  create_table "erp_deliveries_deliveries", id: :serial, force: :cascade do |t|
+    t.string "code"
+    t.datetime "date"
+    t.string "delivery_type"
+    t.string "status", default: "delivered"
+    t.boolean "archived", default: false
+    t.integer "order_id"
+    t.integer "warehouse_id"
+    t.integer "contact_id"
+    t.integer "supplier_id"
+    t.integer "employee_id"
+    t.integer "creator_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contact_id"], name: "index_erp_deliveries_deliveries_on_contact_id"
+    t.index ["creator_id"], name: "index_erp_deliveries_deliveries_on_creator_id"
+    t.index ["employee_id"], name: "index_erp_deliveries_deliveries_on_employee_id"
+    t.index ["order_id"], name: "index_erp_deliveries_deliveries_on_order_id"
+    t.index ["supplier_id"], name: "index_erp_deliveries_deliveries_on_supplier_id"
+    t.index ["warehouse_id"], name: "index_erp_deliveries_deliveries_on_warehouse_id"
+  end
+
+  create_table "erp_deliveries_delivery_details", id: :serial, force: :cascade do |t|
+    t.integer "quantity"
+    t.string "serial_numbers"
+    t.integer "delivery_id"
+    t.integer "order_detail_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["delivery_id"], name: "index_erp_deliveries_delivery_details_on_delivery_id"
+    t.index ["order_detail_id"], name: "index_erp_deliveries_delivery_details_on_order_detail_id"
+  end
+
   create_table "erp_editor_uploads", id: :serial, force: :cascade do |t|
     t.string "image_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "erp_gift_givens_given_details", force: :cascade do |t|
-    t.integer "quantity", default: 1
-    t.bigint "product_id"
-    t.bigint "given_id"
-    t.bigint "warehouse_id"
-    t.bigint "state_id"
+  create_table "erp_menus_menus", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.integer "parent_id"
+    t.string "style_icon"
+    t.string "style_color"
+    t.string "image_url_1"
+    t.string "image_url_2"
+    t.string "menu_icon"
+    t.string "image_menu_link_1"
+    t.string "image_menu_link_2"
+    t.text "description"
+    t.text "meta_keywords"
+    t.text "meta_description"
+    t.boolean "is_hot", default: false
+    t.boolean "archived", default: false
+    t.integer "creator_id"
+    t.integer "brand_group_id"
+    t.integer "custom_order"
+    t.integer "level"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["given_id"], name: "index_erp_gift_givens_given_details_on_given_id"
-    t.index ["product_id"], name: "index_erp_gift_givens_given_details_on_product_id"
-    t.index ["state_id"], name: "index_erp_gift_givens_given_details_on_state_id"
-    t.index ["warehouse_id"], name: "index_erp_gift_givens_given_details_on_warehouse_id"
+    t.integer "brand_id"
+    t.string "image_menu"
+    t.string "image_menu_title"
+    t.string "image_menu_link"
+    t.text "cache_search"
+    t.boolean "is_show_detail", default: true
+    t.integer "number_per_page", default: 12
+    t.boolean "use_filter", default: false
+    t.index ["brand_group_id"], name: "index_erp_menus_menus_on_brand_group_id"
+    t.index ["creator_id"], name: "index_erp_menus_menus_on_creator_id"
   end
 
-  create_table "erp_gift_givens_givens", force: :cascade do |t|
-    t.string "code"
-    t.datetime "given_date"
-    t.bigint "creator_id"
-    t.bigint "contact_id"
-    t.text "note"
-    t.string "status"
-    t.integer "cache_products_count"
+  create_table "erp_menus_menus_products_categories", id: :serial, force: :cascade do |t|
+    t.integer "menu_id"
+    t.integer "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["contact_id"], name: "index_erp_gift_givens_givens_on_contact_id"
-    t.index ["creator_id"], name: "index_erp_gift_givens_givens_on_creator_id"
+    t.index ["category_id"], name: "index_erp_menus_menus_products_categories_on_category_id"
+    t.index ["menu_id"], name: "index_erp_menus_menus_products_categories_on_menu_id"
   end
 
-  create_table "erp_order_stock_checks_scheck_details", force: :cascade do |t|
-    t.bigint "scheck_id"
-    t.bigint "order_detail_id"
-    t.boolean "available", default: false
-    t.string "alternative_items"
-    t.text "note"
+  create_table "erp_menus_related_menus", id: :serial, force: :cascade do |t|
+    t.integer "parent_id"
+    t.integer "menu_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["order_detail_id"], name: "index_erp_order_stock_checks_scheck_details_on_order_detail_id"
-    t.index ["scheck_id"], name: "index_erp_order_stock_checks_scheck_details_on_scheck_id"
+    t.index ["menu_id"], name: "index_erp_menus_related_menus_on_menu_id"
+    t.index ["parent_id"], name: "index_erp_menus_related_menus_on_parent_id"
   end
 
-  create_table "erp_order_stock_checks_schecks", force: :cascade do |t|
-    t.string "code"
-    t.string "status"
-    t.bigint "order_id"
-    t.bigint "employee_id"
-    t.bigint "creator_id"
+  create_table "erp_newsletters_newsletters", id: :serial, force: :cascade do |t|
+    t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["creator_id"], name: "index_erp_order_stock_checks_schecks_on_creator_id"
-    t.index ["employee_id"], name: "index_erp_order_stock_checks_schecks_on_employee_id"
-    t.index ["order_id"], name: "index_erp_order_stock_checks_schecks_on_order_id"
   end
 
   create_table "erp_orders_frontend_order_details", id: :serial, force: :cascade do |t|
@@ -338,15 +422,10 @@ ActiveRecord::Schema.define(version: 20180330030001) do
     t.string "cache_delivery_status"
     t.decimal "cache_total"
     t.decimal "cache_real_revenue"
-    t.string "serials"
-    t.string "eye_position"
     t.decimal "cost_price", default: "0.0"
-    t.boolean "must_same_code"
-    t.boolean "must_same_diameter"
-    t.bigint "request_product_id"
+    t.integer "warehouse_id"
     t.index ["order_id"], name: "index_erp_orders_order_details_on_order_id"
     t.index ["product_id"], name: "index_erp_orders_order_details_on_product_id"
-    t.index ["request_product_id"], name: "index_erp_orders_order_details_on_request_product_id"
     t.index ["unit_id"], name: "index_erp_orders_order_details_on_unit_id"
   end
 
@@ -371,190 +450,14 @@ ActiveRecord::Schema.define(version: 20180330030001) do
     t.string "payment_for"
     t.decimal "cache_commission_amount"
     t.decimal "cache_customer_commission_amount"
-    t.integer "doctor_id"
-    t.integer "hospital_id"
-    t.integer "patient_id"
-    t.boolean "is_new_patient", default: false
-    t.integer "patient_state_id"
     t.decimal "cache_cost_total", default: "0.0"
-    t.decimal "checking_order"
+    t.datetime "confirmed_at"
     t.index ["creator_id"], name: "index_erp_orders_orders_on_creator_id"
     t.index ["customer_id"], name: "index_erp_orders_orders_on_customer_id"
     t.index ["employee_id"], name: "index_erp_orders_orders_on_employee_id"
     t.index ["supplier_id"], name: "index_erp_orders_orders_on_supplier_id"
     t.index ["tax_id"], name: "index_erp_orders_orders_on_tax_id"
     t.index ["warehouse_id"], name: "index_erp_orders_orders_on_warehouse_id"
-  end
-
-  create_table "erp_ortho_k_careas_pvalues", force: :cascade do |t|
-    t.bigint "central_area_id"
-    t.bigint "property_value_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["central_area_id"], name: "index_erp_ortho_k_careas_pvalues_on_central_area_id"
-    t.index ["property_value_id"], name: "index_erp_ortho_k_careas_pvalues_on_property_value_id"
-  end
-
-  create_table "erp_ortho_k_central_areas", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "erp_ortho_k_patient_states", force: :cascade do |t|
-    t.string "name"
-    t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "status"
-  end
-
-  create_table "erp_ortho_k_property_values", force: :cascade do |t|
-    t.string "value"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "erp_payments_accounting_accounts", force: :cascade do |t|
-    t.string "code"
-    t.string "name"
-    t.string "status"
-    t.bigint "creator_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["creator_id"], name: "index_erp_payments_accounting_accounts_on_creator_id"
-  end
-
-  create_table "erp_payments_accounts", id: :serial, force: :cascade do |t|
-    t.string "name"
-    t.string "account_number"
-    t.string "owner"
-    t.boolean "archived", default: false
-    t.integer "creator_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "status"
-    t.string "code"
-    t.string "payment_method"
-    t.index ["creator_id"], name: "index_erp_payments_accounts_on_creator_id"
-  end
-
-  create_table "erp_payments_debts", id: :serial, force: :cascade do |t|
-    t.integer "order_id"
-    t.datetime "deadline"
-    t.string "note"
-    t.boolean "archived", default: false
-    t.integer "creator_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["creator_id"], name: "index_erp_payments_debts_on_creator_id"
-    t.index ["order_id"], name: "index_erp_payments_debts_on_order_id"
-  end
-
-  create_table "erp_payments_payment_methods", id: :serial, force: :cascade do |t|
-    t.string "name"
-    t.string "type_method"
-    t.boolean "is_default"
-    t.boolean "archived", default: false
-    t.integer "creator_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["creator_id"], name: "index_erp_payments_payment_methods_on_creator_id"
-  end
-
-  create_table "erp_payments_payment_records", id: :serial, force: :cascade do |t|
-    t.string "code"
-    t.string "pay_receive"
-    t.decimal "amount"
-    t.datetime "payment_date"
-    t.text "description"
-    t.string "status"
-    t.integer "order_id"
-    t.integer "accountant_id"
-    t.integer "customer_id"
-    t.integer "supplier_id"
-    t.integer "account_id"
-    t.integer "payment_type_id"
-    t.integer "employee_id"
-    t.integer "creator_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "delivery_id"
-    t.integer "debit_account_id"
-    t.integer "credit_account_id"
-    t.string "payment_method"
-    t.string "address"
-    t.decimal "cache_for_order_commission_amount", default: "0.0"
-    t.string "origin_doc"
-    t.string "cache_search"
-    t.index ["account_id"], name: "index_erp_payments_payment_records_on_account_id"
-    t.index ["accountant_id"], name: "index_erp_payments_payment_records_on_accountant_id"
-    t.index ["creator_id"], name: "index_erp_payments_payment_records_on_creator_id"
-    t.index ["customer_id"], name: "index_erp_payments_payment_records_on_customer_id"
-    t.index ["delivery_id"], name: "index_erp_payments_payment_records_on_delivery_id"
-    t.index ["employee_id"], name: "index_erp_payments_payment_records_on_employee_id"
-    t.index ["order_id"], name: "index_erp_payments_payment_records_on_order_id"
-    t.index ["payment_type_id"], name: "index_erp_payments_payment_records_on_payment_type_id"
-    t.index ["supplier_id"], name: "index_erp_payments_payment_records_on_supplier_id"
-  end
-
-  create_table "erp_payments_payment_terms", id: :serial, force: :cascade do |t|
-    t.string "name"
-    t.integer "timeout", default: 0
-    t.string "started_on"
-    t.boolean "is_default"
-    t.boolean "archived", default: false
-    t.integer "creator_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["creator_id"], name: "index_erp_payments_payment_terms_on_creator_id"
-  end
-
-  create_table "erp_payments_payment_type_limits", force: :cascade do |t|
-    t.bigint "payment_type_id"
-    t.bigint "period_id"
-    t.decimal "amount", default: "0.0"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["payment_type_id"], name: "index_erp_payments_payment_type_limits_on_payment_type_id"
-    t.index ["period_id"], name: "index_erp_payments_payment_type_limits_on_period_id"
-  end
-
-  create_table "erp_payments_payment_types", force: :cascade do |t|
-    t.string "name"
-    t.string "code"
-    t.boolean "is_payable"
-    t.boolean "is_receivable"
-    t.string "status"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "erp_periods_periods", force: :cascade do |t|
-    t.string "name"
-    t.datetime "from_date"
-    t.datetime "to_date"
-    t.string "status"
-    t.bigint "creator_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["creator_id"], name: "index_erp_periods_periods_on_creator_id"
-  end
-
-  create_table "erp_prices_prices", force: :cascade do |t|
-    t.string "price_type"
-    t.bigint "contact_id"
-    t.text "categories"
-    t.text "properties_values"
-    t.integer "min_quantity"
-    t.integer "max_quantity"
-    t.decimal "price"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.text "products"
-    t.index ["categories"], name: "index_erp_prices_prices_on_categories"
-    t.index ["contact_id"], name: "index_erp_prices_prices_on_contact_id"
-    t.index ["properties_values"], name: "index_erp_prices_prices_on_properties_values"
   end
 
   create_table "erp_products_accessories", id: :serial, force: :cascade do |t|
@@ -686,6 +589,7 @@ ActiveRecord::Schema.define(version: 20180330030001) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "employee_id"
+    t.datetime "confirmed_at"
     t.index ["creator_id"], name: "index_erp_products_damage_records_on_creator_id"
     t.index ["employee_id"], name: "index_erp_products_damage_records_on_employee_id"
     t.index ["warehouse_id"], name: "index_erp_products_damage_records_on_warehouse_id"
@@ -803,8 +707,8 @@ ActiveRecord::Schema.define(version: 20180330030001) do
   create_table "erp_products_product_images", id: :serial, force: :cascade do |t|
     t.integer "product_id"
     t.string "image_url"
-    t.datetime "created_at", default: "2018-01-09 01:23:24", null: false
-    t.datetime "updated_at", default: "2018-01-09 01:23:24", null: false
+    t.datetime "created_at", default: "2018-09-21 07:20:37", null: false
+    t.datetime "updated_at", default: "2018-09-21 07:20:37", null: false
     t.index ["product_id"], name: "index_erp_products_product_images_on_product_id"
   end
 
@@ -855,9 +759,8 @@ ActiveRecord::Schema.define(version: 20180330030001) do
     t.text "cache_properties"
     t.integer "cache_stock"
     t.boolean "is_call", default: false
-    t.boolean "is_outside", default: false
-    t.string "cache_diameter"
-    t.string "ordered_code"
+    t.string "ebay_id"
+    t.string "amazon_id"
     t.index ["accessory_id"], name: "index_erp_products_products_on_accessory_id"
     t.index ["brand_id"], name: "index_erp_products_products_on_brand_id"
     t.index ["category_id"], name: "index_erp_products_products_on_category_id"
@@ -977,6 +880,7 @@ ActiveRecord::Schema.define(version: 20180330030001) do
     t.bigint "creator_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "confirmed_at"
     t.index ["creator_id"], name: "index_erp_products_state_checks_on_creator_id"
     t.index ["employee_id"], name: "index_erp_products_state_checks_on_employee_id"
     t.index ["warehouse_id"], name: "index_erp_products_state_checks_on_warehouse_id"
@@ -1003,7 +907,6 @@ ActiveRecord::Schema.define(version: 20180330030001) do
     t.bigint "state_id"
     t.integer "real"
     t.integer "stock"
-    t.string "serials"
     t.index ["product_id"], name: "index_erp_products_stock_check_details_on_product_id"
     t.index ["state_id"], name: "index_erp_products_stock_check_details_on_state_id"
     t.index ["stock_check_id"], name: "index_erp_products_stock_check_details_on_stock_check_id"
@@ -1020,6 +923,7 @@ ActiveRecord::Schema.define(version: 20180330030001) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "employee_id"
+    t.datetime "confirmed_at"
     t.index ["creator_id"], name: "index_erp_products_stock_checks_on_creator_id"
     t.index ["employee_id"], name: "index_erp_products_stock_checks_on_employee_id"
     t.index ["warehouse_id"], name: "index_erp_products_stock_checks_on_warehouse_id"
@@ -1043,123 +947,44 @@ ActiveRecord::Schema.define(version: 20180330030001) do
     t.index ["tax_id"], name: "index_erp_products_vendor_taxes_on_tax_id"
   end
 
-  create_table "erp_qdeliveries_deliveries", force: :cascade do |t|
-    t.string "code"
-    t.datetime "date"
-    t.string "delivery_type"
-    t.text "note"
-    t.string "status", default: "delivered"
-    t.boolean "archived", default: false
-    t.bigint "customer_id"
-    t.bigint "supplier_id"
-    t.bigint "employee_id"
-    t.bigint "creator_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "cache_payment_status"
-    t.string "payment_for"
-    t.decimal "cache_total"
-    t.string "address"
-    t.index ["creator_id"], name: "index_erp_qdeliveries_deliveries_on_creator_id"
-    t.index ["customer_id"], name: "index_erp_qdeliveries_deliveries_on_customer_id"
-    t.index ["employee_id"], name: "index_erp_qdeliveries_deliveries_on_employee_id"
-    t.index ["supplier_id"], name: "index_erp_qdeliveries_deliveries_on_supplier_id"
-  end
-
-  create_table "erp_qdeliveries_delivery_details", force: :cascade do |t|
-    t.integer "quantity"
-    t.bigint "order_detail_id"
-    t.bigint "state_id"
-    t.bigint "warehouse_id"
-    t.bigint "delivery_id"
-    t.text "note"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table "erp_quick_orders_order_details", force: :cascade do |t|
     t.bigint "product_id"
-    t.decimal "price"
-    t.decimal "cache_total"
-    t.string "serials"
-    t.index ["delivery_id"], name: "index_erp_qdeliveries_delivery_details_on_delivery_id"
-    t.index ["order_detail_id"], name: "index_erp_qdeliveries_delivery_details_on_order_detail_id"
-    t.index ["product_id"], name: "index_erp_qdeliveries_delivery_details_on_product_id"
-    t.index ["state_id"], name: "index_erp_qdeliveries_delivery_details_on_state_id"
-    t.index ["warehouse_id"], name: "index_erp_qdeliveries_delivery_details_on_warehouse_id"
-  end
-
-  create_table "erp_stock_transfers_transfer_details", force: :cascade do |t|
+    t.bigint "order_id"
+    t.string "product_name"
     t.integer "quantity", default: 1
-    t.bigint "product_id"
-    t.bigint "transfer_id"
-    t.bigint "state_id"
+    t.decimal "price"
+    t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["product_id"], name: "index_erp_stock_transfers_transfer_details_on_product_id"
-    t.index ["state_id"], name: "index_erp_stock_transfers_transfer_details_on_state_id"
-    t.index ["transfer_id"], name: "index_erp_stock_transfers_transfer_details_on_transfer_id"
+    t.index ["order_id"], name: "index_erp_quick_orders_order_details_on_order_id"
+    t.index ["product_id"], name: "index_erp_quick_orders_order_details_on_product_id"
   end
 
-  create_table "erp_stock_transfers_transfers", force: :cascade do |t|
+  create_table "erp_quick_orders_orders", force: :cascade do |t|
     t.string "code"
-    t.datetime "received_at"
-    t.bigint "source_warehouse_id"
-    t.bigint "destination_warehouse_id"
-    t.bigint "creator_id"
+    t.string "customer_name"
+    t.string "phone"
+    t.string "email"
     t.text "note"
-    t.string "status"
-    t.integer "cache_products_count"
+    t.decimal "cache_total"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["creator_id"], name: "index_erp_stock_transfers_transfers_on_creator_id"
-    t.index ["destination_warehouse_id"], name: "index_erp_stock_transfers_transfers_on_destination_warehouse_id"
-    t.index ["source_warehouse_id"], name: "index_erp_stock_transfers_transfers_on_source_warehouse_id"
+    t.boolean "invoice", default: false
+    t.string "address"
+    t.bigint "district_id"
+    t.bigint "state_id"
+    t.index ["district_id"], name: "index_erp_quick_orders_orders_on_district_id"
+    t.index ["state_id"], name: "index_erp_quick_orders_orders_on_state_id"
   end
 
-  create_table "erp_targets_company_targets", force: :cascade do |t|
-    t.string "name"
-    t.decimal "amount"
-    t.decimal "bonus_percent"
-    t.string "status"
-    t.bigint "period_id"
-    t.bigint "creator_id"
+  create_table "erp_testimonials_testimonials", id: :serial, force: :cascade do |t|
+    t.string "logo"
+    t.string "author"
+    t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["creator_id"], name: "index_erp_targets_company_targets_on_creator_id"
-    t.index ["period_id"], name: "index_erp_targets_company_targets_on_period_id"
-  end
-
-  create_table "erp_targets_target_details", force: :cascade do |t|
-    t.bigint "target_id"
-    t.decimal "percent", default: "0.0"
-    t.decimal "commission_amount", default: "0.0"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["target_id"], name: "index_erp_targets_target_details_on_target_id"
-  end
-
-  create_table "erp_targets_targets", force: :cascade do |t|
-    t.bigint "salesperson_id"
-    t.bigint "period_id"
-    t.decimal "amount", default: "0.0"
-    t.string "status"
-    t.bigint "creator_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["creator_id"], name: "index_erp_targets_targets_on_creator_id"
-    t.index ["period_id"], name: "index_erp_targets_targets_on_period_id"
-    t.index ["salesperson_id"], name: "index_erp_targets_targets_on_salesperson_id"
-  end
-
-  create_table "erp_taxes_taxes", id: :serial, force: :cascade do |t|
-    t.string "name"
-    t.string "short_name"
-    t.string "scope"
-    t.string "computation"
-    t.decimal "amount", default: "0.0"
+    t.string "workplace"
     t.boolean "archived", default: false
-    t.integer "creator_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["creator_id"], name: "index_erp_taxes_taxes_on_creator_id"
   end
 
   create_table "erp_user_groups", force: :cascade do |t|
@@ -1191,7 +1016,6 @@ ActiveRecord::Schema.define(version: 20180330030001) do
     t.string "timezone"
     t.boolean "active", default: false
     t.integer "creator_id"
-    t.integer "contact_id"
     t.text "permissions"
     t.string "confirmation_token"
     t.datetime "confirmed_at", default: -> { "now()" }
@@ -1199,6 +1023,8 @@ ActiveRecord::Schema.define(version: 20180330030001) do
     t.bigint "user_group_id"
     t.string "address"
     t.text "data"
+    t.text "cache_search"
+    t.integer "contact_id"
     t.index ["confirmation_token"], name: "index_erp_users_on_confirmation_token", unique: true
     t.index ["contact_id"], name: "index_erp_users_on_contact_id"
     t.index ["creator_id"], name: "index_erp_users_on_creator_id"
@@ -1207,16 +1033,24 @@ ActiveRecord::Schema.define(version: 20180330030001) do
     t.index ["user_group_id"], name: "index_erp_users_on_user_group_id"
   end
 
-  create_table "erp_warehouses_warehouses", id: :serial, force: :cascade do |t|
-    t.string "name"
-    t.string "short_name"
-    t.integer "creator_id"
-    t.integer "contact_id"
-    t.boolean "archived", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["contact_id"], name: "index_erp_warehouses_warehouses_on_contact_id"
-    t.index ["creator_id"], name: "index_erp_warehouses_warehouses_on_creator_id"
+  create_table "version_associations", force: :cascade do |t|
+    t.integer "version_id"
+    t.string "foreign_key_name", null: false
+    t.integer "foreign_key_id"
+    t.index ["foreign_key_name", "foreign_key_id"], name: "index_version_associations_on_foreign_key"
+    t.index ["version_id"], name: "index_version_associations_on_version_id"
+  end
+
+  create_table "versions", force: :cascade do |t|
+    t.string "item_type", null: false
+    t.integer "item_id", null: false
+    t.string "event", null: false
+    t.string "whodunnit"
+    t.text "object"
+    t.datetime "created_at"
+    t.integer "transaction_id"
+    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
+    t.index ["transaction_id"], name: "index_versions_on_transaction_id"
   end
 
 end
